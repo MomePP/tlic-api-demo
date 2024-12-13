@@ -38,11 +38,11 @@ func (cs *CourseService) CreateCourse(course *models.Course) error {
 }
 
 // Update an existing course
-func (cs *CourseService) UpdateCourse(id uint, updatedData *models.Course) (*models.Course, error) {
+func (cs *CourseService) UpdateCourse(id int, updatedData *models.Course) (*models.Course, error) {
 	var course models.Course
 	if err := cs.DB.First(&course, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, errors.New("course not found")
+			return nil, errors.New("Course not found")
 		}
 		return nil, err
 	}
@@ -57,6 +57,6 @@ func (cs *CourseService) UpdateCourse(id uint, updatedData *models.Course) (*mod
 }
 
 // Delete a course
-func (cs *CourseService) DeleteCourse(id uint) error {
+func (cs *CourseService) DeleteCourse(id int) error {
 	return cs.DB.Delete(&models.Course{}, id).Error
 }
